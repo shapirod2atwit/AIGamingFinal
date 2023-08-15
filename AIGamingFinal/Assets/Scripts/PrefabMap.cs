@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+* This script procedurally generates the map and renders it.
+* It combines squares and rectangles while
+* trying to create minimum overlap.
+*/
+
 public class PrefabMap : MonoBehaviour
 {
 
@@ -9,15 +15,15 @@ public class PrefabMap : MonoBehaviour
     public int x = 24;
     public int y = 10;
 
-    private bool[,] map;
+    public bool[,] map;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         map = new bool[x,y];
         renderMap();
     }
 
+    //renders a 2d array into the game using tile prefabs
     private void renderMap(){
 
         makeMap();
@@ -35,15 +41,22 @@ public class PrefabMap : MonoBehaviour
         }
     }
 
+    //creates a 2d array representation of the map
     private void makeMap(){
         
         for(int i=1;i<map.GetUpperBound(0)-4;i++){
             for(int j=1;j<map.GetUpperBound(1)-4;j++){
-
+                
+                //random number to determine prefab used
                 float r = Random.Range(0.0f,1.0f);
+                //random offset to prevent the top of the map being a straight line
                 int offset = Mathf.FloorToInt(Random.Range(0.0f,2.0f));
+                //get how many neighbors the current index has
                 int numNeighbors = checkAdjNeighbors(i,j);
 
+                //check if the index is occupied and
+                //and if it has less than 2 neighbors
+                //if both conditions are met, assign a random prefab
                 if(!map[i,j] && numNeighbors < 2){
                     if(r >= 0.0f && r < 0.2f){
                         square3(i,j-offset);
