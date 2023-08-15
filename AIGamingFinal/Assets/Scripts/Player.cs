@@ -14,7 +14,9 @@ public class Player : MonoBehaviour
     private int z;
     private GameObject gameLoader;
     private bool[,] map;
+    private int overAllScore;
     public int score = 0;
+    private GameObject scoreHolder;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,8 @@ public class Player : MonoBehaviour
         //get the 2d array representation of the map
         gameLoader = GameObject.Find("GameLoader");
         map = gameLoader.GetComponent<PrefabMap>().map;
+
+        scoreHolder = GameObject.Find("ScoreHolder");
     }
 
     // Update is called once per frame
@@ -50,12 +54,14 @@ public class Player : MonoBehaviour
     }
 
     //If the player collides with a coin,
-    //destroy it and increase score
+    //destroy it and increase this round's score
+    //also increment overall score
     private void OnTriggerEnter(Collider c)
     {
         if(string.Equals(c.gameObject.name,"Coin(Clone)")){
             Destroy(c.gameObject);
             score++;
+            scoreHolder.GetComponent<ScoreHolder>().score++;
         }
         
     }
