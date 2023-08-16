@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spawn
   - Coin
+  - Ghost
   layers:
   - Default
   - TransparentFX

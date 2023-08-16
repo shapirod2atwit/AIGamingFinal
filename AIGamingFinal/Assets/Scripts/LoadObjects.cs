@@ -10,6 +10,7 @@ public class LoadObjects : MonoBehaviour
 
     public GameObject player;
     public GameObject coin;
+    public GameObject ghost;
 
 
     // Start is called before the first frame update
@@ -28,9 +29,22 @@ public class LoadObjects : MonoBehaviour
             if(i!=location){
                 Vector3 coinPosition = new Vector3(spawnLocations[i].transform.position.x, 1, spawnLocations[i].transform.position.z);
 
-                //create the player at the random location
+                //create coin
                 Instantiate(coin, coinPosition, Quaternion.identity);
             }
+        }
+
+        //CHANGE LATER
+        for(int i=0; i<4;i++){
+            int l = Mathf.FloorToInt(Random.Range(0.0f,(float) (spawnLocations.Length-2)));
+            while(location == l){
+                l = Mathf.FloorToInt(Random.Range(0.0f,(float) (spawnLocations.Length-2)));
+            }
+            Vector3 coinPosition = new Vector3(spawnLocations[l].transform.position.x, 1, spawnLocations[l].transform.position.z);
+
+            //create the player at the random location
+            Instantiate(ghost, coinPosition, Quaternion.identity);
+
         }
     }
 

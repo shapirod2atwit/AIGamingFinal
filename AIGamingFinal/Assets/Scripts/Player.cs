@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 /*
 * This script 
 *
@@ -10,8 +10,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private int x;
-    private int z;
+    public int x;
+    public int z;
     private GameObject gameLoader;
     private bool[,] map;
     private int overAllScore;
@@ -63,6 +63,10 @@ public class Player : MonoBehaviour
             score++;
             scoreHolder.GetComponent<ScoreHolder>().score++;
         }
-        
+
+        if(string.Equals(c.gameObject.name,"Ghost(Clone)")){
+            Destroy(scoreHolder);
+            SceneManager.LoadScene("EntryScene");
+        }
     }
 }
